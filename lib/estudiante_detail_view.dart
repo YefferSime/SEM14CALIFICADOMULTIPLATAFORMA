@@ -30,55 +30,119 @@ class _StudentDetailViewState extends State<StudentDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.student == null ? 'Agregar Estudiante' : 'Editar Estudiante'),
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.grey[900], // Fondo gris oscuro
+        appBarTheme: AppBarTheme(
+          color: Colors.grey[900], // Barra de aplicación gris oscuro
+          elevation: 0, toolbarTextStyle: TextTheme(
+            headline6: TextStyle(
+              color: Colors.white, // Texto del título en blanco
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ).bodyText2, titleTextStyle: TextTheme(
+            headline6: TextStyle(
+              color: Colors.white, // Texto del título en blanco
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ).headline6,
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: _nombreController,
-                decoration: InputDecoration(labelText: 'Nombre'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: _carreraController,
-                decoration: InputDecoration(labelText: 'Carrera'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: _fechaIngresoController,
-                decoration: InputDecoration(labelText: 'Fecha de Ingreso (dd/mm/yyyy)'),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (pickedDate != null) {
-                    _fechaIngresoController.text = _formatDate(pickedDate);
-                  }
-                },
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: _edadController,
-                decoration: InputDecoration(labelText: 'Edad'),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  _saveStudent();
-                },
-                child: Text(widget.student == null ? 'Agregar' : 'Guardar Cambios'),
-              ),
-            ],
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.student == null ? 'Agregar Estudiante' : 'Editar Estudiante'),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  controller: _nombreController,
+                  style: TextStyle(color: Colors.white), // Color del texto blanco
+                  decoration: InputDecoration(
+                    labelText: 'Nombre',
+                    labelStyle: TextStyle(color: Colors.white), // Color del label blanco
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white), // Borde blanco cuando no está enfocado
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue), // Borde azul cuando está enfocado
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: _carreraController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: 'Carrera',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: _fechaIngresoController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: 'Fecha de Ingreso (dd/mm/yyyy)',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                  ),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+                    if (pickedDate != null) {
+                      _fechaIngresoController.text = _formatDate(pickedDate);
+                    }
+                  },
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: _edadController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: 'Edad',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(height: 32.0),
+                ElevatedButton(
+                  onPressed: () {
+                    _saveStudent();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Color de fondo azul del botón
+                  ),
+                  child: Text(widget.student == null ? 'Agregar' : 'Guardar Cambios'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
